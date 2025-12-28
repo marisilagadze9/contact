@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -39,10 +40,13 @@ public class Adapter extends BaseAdapter {
             convertView=inflater.inflate(R.layout.layout,parent,false);
         }
         Contact c=(Contact) getItem(position);
-        TextView t=convertView.findViewById(R.id.tt);
-        TextView n=convertView.findViewById(R.id.nn);
-        t.setText(c.GetNumber().toString());
-        n.setText(c.GetName().toString());
+        TextView avatarTv=convertView.findViewById(R.id.avatar);
+        TextView nameTv=convertView.findViewById(R.id.nn);
+
+        String name=c.GetName();
+        nameTv.setText(name);
+        avatarTv.setText(name.substring(0,1).toUpperCase());
+
 
         return convertView;
     }

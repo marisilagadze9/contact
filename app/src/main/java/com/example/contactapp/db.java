@@ -81,4 +81,29 @@ public class db extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void Update(Contact c){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(ColumnName, c.GetName());
+        cv.put(ColumnTel, c.GetNumber());
+        db.update(users, cv, ColumnID + "=?", new String[]{String.valueOf(c.GetId())});
+        db.close();
+    }
+
+    public Contact getContactById(int id){
+        SQLiteDatabase db=getReadableDatabase();
+        Cursor cur=db.query(users, null, ColumnID + "=?", new String[]{String.valueOf(id)}, null, null, null);
+        Contact c=null;
+        if(cur.moveToFirst()){
+            String n=cur.getString(cur.getColumnIndexOrThrow(ColumnName));
+            String t=cur.getString(cur.getColumnIndexOrThrow(ColumnTel));
+            c=new Contact(id, n, t);
+        }
+        cur.close();
+        return c;
+    }
+
+
+
+
 }

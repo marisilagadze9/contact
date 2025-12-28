@@ -2,6 +2,8 @@ package com.example.contactapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         searchtxt=findViewById(R.id.searchtxt);
-        search=findViewById(R.id.searchbtn);
+
         add=findViewById(R.id.add);
         lv=findViewById(R.id.lv);
 
@@ -49,9 +51,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        search.setOnClickListener(new View.OnClickListener() {
+        searchtxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String text=searchtxt.getText().toString().trim();
                 list.clear();
                 if(text.isEmpty()){
@@ -68,9 +80,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Contact c=list.get(position);
-                d.Delete(c.GetId());
-                list.remove(position);
-                ad.notifyDataSetChanged();
+
+                Intent i=new Intent(MainActivity.this,Details.class);
+                i.putExtra("id",c.GetId());
+                i.putExtra("name",c.GetName());
+                i.putExtra("number",c.GetNumber());
+                startActivity(i);
 
 
             }

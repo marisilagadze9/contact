@@ -5,6 +5,7 @@ import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class addActivity extends AppCompatActivity {
 
     EditText name,number;
-    Button add;
+    ImageButton back;
+    Button add,cancle;
+
     db d;
 
     @Override
@@ -23,6 +26,8 @@ public class addActivity extends AppCompatActivity {
         name=findViewById(R.id.name);
         number=findViewById(R.id.number);
         add=findViewById(R.id.add);
+        cancle=findViewById(R.id.cancel);
+        back=findViewById(R.id.backbtn);
         d=new db(getApplicationContext(),"db",null,1);
 
         add.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +46,25 @@ public class addActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name.setText("");
+                number.setText("");
+                finish();
+
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name.setText("");
+                number.setText("");
+                finish();
             }
         });
 
